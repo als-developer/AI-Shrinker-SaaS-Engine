@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-3xl mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-6">Account Settings</h1>
+
+        <div class="space-y-6">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6"><h3 class="font-bold mb-4">Profile Information</h3>
+                <div class="space-y-4"><div><label class="block text-sm mb-1">Full Name</label><input type="text" value="John Doe" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2"></div>
+                <div><label class="block text-sm mb-1">Email</label><input type="email" value="john@acme.com" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2"></div>
+                <button class="px-4 py-2 bg-indigo-600 rounded-lg text-sm">Save Changes</button></div>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6"><h3 class="font-bold mb-4">Notification Preferences</h3>
+                <div class="space-y-3"><label class="flex items-center gap-3"><input type="checkbox" checked> Email me about billing</label>
+                <label class="flex items-center gap-3"><input type="checkbox"> Security alerts</label>
+                <label class="flex items-center gap-3"><input type="checkbox" checked> Product updates</label></div>
+            </div>
+
+            <div class="bg-gray-900 border border-red-800 rounded-2xl p-6"><h3 class="font-bold text-red-400 mb-4">Danger Zone</h3>
+                <button onclick="deleteAccount()" class="px-4 py-2 bg-red-600 rounded-lg text-sm">Delete Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script>function deleteAccount(){ if(confirm('Are you sure? This action cannot be undone.')) alert('Account deletion requested.'); }</script>
+</body>
+</html>
