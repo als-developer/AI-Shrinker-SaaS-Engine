@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-3xl mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-6">Notification Preferences</h1>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-6">
+            <div class="flex justify-between items-center pb-4 border-b border-gray-800">
+                <div><h3 class="font-bold">Email Notifications</h3><p class="text-sm text-gray-400">Receive updates via email</p></div>
+                <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-11 h-6 bg-gray-700 peer-checked:bg-indigo-600 rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div></label>
+            </div>
+            <div class="flex justify-between items-center pb-4 border-b border-gray-800">
+                <div><h3 class="font-bold">Billing Alerts</h3><p class="text-sm text-gray-400">Invoices, payment confirmations, and subscription changes</p></div>
+                <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-11 h-6 bg-gray-700 peer-checked:bg-indigo-600 rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div></label>
+            </div>
+            <div class="flex justify-between items-center pb-4 border-b border-gray-800">
+                <div><h3 class="font-bold">Security Alerts</h3><p class="text-sm text-gray-400">New login attempts, API key changes, and suspicious activity</p></div>
+                <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" checked class="sr-only peer"><div class="w-11 h-6 bg-gray-700 peer-checked:bg-indigo-600 rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div></label>
+            </div>
+            <div class="flex justify-between items-center pb-4 border-b border-gray-800">
+                <div><h3 class="font-bold">Product Updates</h3><p class="text-sm text-gray-400">New features, improvements, and API version updates</p></div>
+                <label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" class="sr-only peer"><div class="w-11 h-6 bg-gray-700 peer-checked:bg-indigo-600 rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div></label>
+            </div>
+            <div class="flex justify-between items-center">
+                <div><h3 class="font-bold">Slack Notifications</h3><p class="text-sm text-gray-400">Connect your Slack workspace for real-time alerts</p></div>
+                <button class="px-4 py-2 border border-gray-700 rounded-lg text-sm">Connect Slack</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
