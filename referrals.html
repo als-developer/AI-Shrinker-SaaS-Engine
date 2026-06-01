@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referrals | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-4xl mx-auto p-8 text-center">
+        <h1 class="text-3xl font-bold mb-4">Refer & Earn</h1>
+        <p class="text-gray-400 mb-8">Invite developers to Sovereign Grid and earn $20 in credits when they sign up for a paid plan</p>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-8">
+            <p class="text-gray-400 text-sm mb-2">Your Referral Link</p>
+            <div class="flex gap-2"><input type="text" id="referralLink" value="https://sovereigngrid.com/signup?ref=YOUR_CODE" class="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-sm" readonly><button onclick="copyLink()" class="px-6 py-3 bg-indigo-600 rounded-xl">Copy</button></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6"><p class="text-2xl font-bold text-indigo-400">12</p><p>Total Referrals</p></div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6"><p class="text-2xl font-bold text-green-400">$240</p><p>Credits Earned</p></div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6"><p class="text-2xl font-bold text-yellow-400">$60</p><p>Pending</p></div>
+        </div>
+    </div>
+
+    <script>function copyLink(){ navigator.clipboard.writeText(document.getElementById('referralLink').value); alert('Link copied!'); }</script>
+</body>
+</html>
