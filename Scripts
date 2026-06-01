@@ -1,0 +1,9 @@
+# FILE 197: scripts/seed.py - Seed database with initial data
+# FILE 198: scripts/healthcheck.py - Health check script
+# FILE 199: scripts/rollback.sh - Rollback deployment
+# FILE 200: scripts/cleanup.sh - Clean up temporary files
+# FILE 201: scripts/sync-env.sh - Sync environment variables
+# FILE 202: scripts/cert-renew.sh - Renew SSL certificates
+# FILE 203: scripts/log-cleanup.sh - Clean up old logs
+# FILE 204: scripts/alert-simulate.py - Simulate alerts for testing
+# FILE 205: scripts/key-rotate-all.py - Rotate all API keys
