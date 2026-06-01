@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .code-block { background: #1e1e2e; border-radius: 8px; padding: 16px; font-family: 'Monaco', monospace; font-size: 13px; overflow-x: auto; }
+        .method-post { background: #10b981; }
+        .method-get { background: #3b82f6; }
+        .method-delete { background: #ef4444; }
+        .sidebar-nav a { transition: all 0.2s; }
+        .sidebar-nav a:hover { border-left-color: #4f46e5; color: white; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <!-- Header -->
+    <header class="border-b border-gray-800 bg-gray-900/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">📚</span>
+                <span class="font-bold text-xl bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">API Reference</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-xs px-2 py-1 bg-green-900 text-green-400 rounded-full">API v31.0 • Stable</span>
+                <a href="/dashboard" class="text-sm text-gray-400 hover:text-white">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto flex">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 border-r border-gray-800 p-6 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
+            <div class="space-y-1">
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Getting Started</div>
+                <a href="#introduction" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">Introduction</a>
+                <a href="#authentication" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">Authentication</a>
+                <a href="#errors" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">Error Codes</a>
+                
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mt-6 mb-3">Engines</div>
+                <a href="#truth-engine" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">TruthEngine</a>
+                <a href="#centpay" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">CentPay Ledger</a>
+                <a href="#ai-shrinker" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">AI Shrinker</a>
+                <a href="#compliance" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">Compliance Shield</a>
+                
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mt-6 mb-3">SDKs</div>
+                <a href="#python" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">Python</a>
+                <a href="#javascript" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">JavaScript</a>
+                <a href="#curl" class="sidebar-nav block py-2 text-sm text-gray-400 border-l-2 border-transparent pl-3">cURL</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 max-w-4xl">
+            
+            <!-- Introduction -->
+            <section id="introduction" class="mb-12">
+                <h1 class="text-3xl font-bold mb-4">Introduction</h1>
+                <p class="text-gray-400 mb-4">The Sovereign Grid API provides programmatic access to three powerful engines: AI fact-checking, micropayment processing, and model compression. All endpoints are accessible via HTTPS and require an API key.</p>
+                <div class="bg-indigo-950/30 border border-indigo-800 rounded-xl p-4">
+                    <p class="text-sm text-indigo-300">📍 Base URL: <code class="bg-gray-800 px-2 py-1 rounded">https://api.sovereigngrid.com/v1</code></p>
+                </div>
+            </section>
+
+            <!-- Authentication -->
+            <section id="authentication" class="mb-12">
+                <h2 class="text-2xl font-bold mb-4">Authentication</h2>
+                <p class="text-gray-400 mb-4">All API requests must include your API key in the <code class="bg-gray-800 px-2 py-1 rounded">X-Sovereign-Key</code> header.</p>
+                <div class="code-block">
+                    <span class="text-purple-400">curl</span> <span class="text-yellow-400">-X POST</span> https://api.sovereigngrid.com/v1/sovereign/execute \<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">-H</span> <span class="text-green-400">"Content-Type: application/json"</span> \<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">-H</span> <span class="text-green-400">"X-Sovereign-Key: YOUR_API_KEY"</span>
+                </div>
+                <div class="mt-4 p-4 bg-yellow-950/30 border border-yellow-800 rounded-xl">
+                    <p class="text-sm text-yellow-300">⚠️ Never share your API key or commit it to public repositories.</p>
+                </div>
+            </section>
+
+            <!-- TruthEngine -->
+            <section id="truth-engine" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="method-post px-3 py-1 rounded text-xs font-bold text-white">POST</span>
+                    <h2 class="text-2xl font-bold">TruthEngine - Fact Check</h2>
+                </div>
+                <p class="text-gray-400 mb-4">Verify claims and statements against trusted knowledge sources. Returns verdict, confidence score, and supporting sources.</p>
+                
+                <div class="code-block mb-4">
+                    <span class="text-gray-500">// Request</span><br>
+                    {
+                        "user_id": "your_user_id",<br>
+                        "execution_mode": "fact_check",<br>
+                        "text_payload": "The Earth revolves around the Sun."<br>
+                    }
+                </div>
+                
+                <div class="code-block">
+                    <span class="text-gray-500">// Response</span><br>
+                    {
+                        "status": "success",<br>
+                        "verdict": "VERIFIED_TRUE",<br>
+                        "confidence": 98.5,<br>
+                        "sources": ["NASA", "Scientific Consensus"]<br>
+                    }
+                </div>
+            </section>
+
+            <!-- CentPay -->
+            <section id="centpay" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="method-post px-3 py-1 rounded text-xs font-bold text-white">POST</span>
+                    <h2 class="text-2xl font-bold">CentPay - Micropayment</h2>
+                </div>
+                <p class="text-gray-400 mb-4">Process micropayments with support for multiple currencies and automatic cashback.</p>
+                
+                <div class="code-block mb-4">
+                    {
+                        "user_id": "customer_123",<br>
+                        "merchant_id": "merchant_456",<br>
+                        "execution_mode": "micro_charge",<br>
+                        "fiat_amount": 50.00,<br>
+                        "currency_code": "TZS"<br>
+                    }
+                </div>
+                
+                <div class="code-block">
+                    {
+                        "status": "ledger_settled_locklessly",<br>
+                        "tx_token": "tx_abc123",<br>
+                        "debited_base_usd": 0.0191,<br>
+                        "cashback_awarded": 0.50<br>
+                    }
+                </div>
+            </section>
+
+            <!-- AI Shrinker -->
+            <section id="ai-shrinker" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="method-post px-3 py-1 rounded text-xs font-bold text-white">POST</span>
+                    <h2 class="text-2xl font-bold">AI Shrinker - Model Compression</h2>
+                </div>
+                <p class="text-gray-400 mb-4">Compress large language models by 10x with minimal accuracy loss.</p>
+                
+                <div class="code-block mb-4">
+                    {
+                        "user_id": "enterprise_789",<br>
+                        "execution_mode": "bulk_compress",<br>
+                        "bulk_models": [<br>
+                            &nbsp;&nbsp;{"model_repo_url": "meta-llama/Llama-3-70B", "target_precision": "int4"}<br>
+                        ]<br>
+                    }
+                </div>
+            </section>
+
+            <!-- Error Codes -->
+            <section id="errors" class="mb-12">
+                <h2 class="text-2xl font-bold mb-4">Error Codes</h2>
+                <div class="space-y-3">
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                        <div class="flex justify-between items-center">
+                            <span class="font-mono text-red-400">401 Unauthorized</span>
+                            <span class="text-sm text-gray-500">Missing or invalid API key</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                        <div class="flex justify-between items-center">
+                            <span class="font-mono text-yellow-400">402 Payment Required</span>
+                            <span class="text-sm text-gray-500">Insufficient credits</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                        <div class="flex justify-between items-center">
+                            <span class="font-mono text-orange-400">429 Too Many Requests</span>
+                            <span class="text-sm text-gray-500">Rate limit exceeded</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SDK Examples -->
+            <section id="python" class="mb-12">
+                <h2 class="text-2xl font-bold mb-4">Python SDK</h2>
+                <div class="code-block">
+                    <span class="text-gray-500"># Installation</span><br>
+                    pip install sovereign-grid-sdk<br><br>
+                    
+                    <span class="text-gray-500"># Usage</span><br>
+                    from sovereign_grid import SovereignClient<br><br>
+                    
+                    client = SovereignClient(api_key="YOUR_API_KEY")<br>
+                    result = client.fact_check("The sky is blue")<br>
+                    print(result.verdict)
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('.sidebar-nav').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const element = document.querySelector(href);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
