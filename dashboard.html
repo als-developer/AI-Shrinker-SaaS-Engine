@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Grid | Enterprise Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-item { transition: all 0.2s ease; }
+        .sidebar-item:hover { background: rgba(99, 102, 241, 0.1); }
+        .sidebar-item.active { background: #4f46e5; color: white; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
+            <div class="p-6 border-b border-gray-800">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">⚡</span>
+                    <span class="font-bold text-lg">Sovereign Grid</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Enterprise Dashboard</p>
+            </div>
+            
+            <nav class="flex-1 p-4 space-y-1">
+                <a href="#" onclick="switchView('overview')" class="sidebar-item active flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium" data-view="overview">
+                    <span>📊</span> <span>Overview</span>
+                </a>
+                <a href="#" onclick="switchView('api_keys')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-400" data-view="api_keys">
+                    <span>🔑</span> <span>API Keys</span>
+                </a>
+                <a href="#" onclick="switchView('billing')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-400" data-view="billing">
+                    <span>💰</span> <span>Billing</span>
+                </a>
+                <a href="#" onclick="switchView('team')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-400" data-view="team">
+                    <span>👥</span> <span>Team</span>
+                </a>
+                <a href="#" onclick="switchView('analytics')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-400" data-view="analytics">
+                    <span>📈</span> <span>Analytics</span>
+                </a>
+                <a href="#" onclick="switchView('settings')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-400" data-view="settings">
+                    <span>⚙️</span> <span>Settings</span>
+                </a>
+            </nav>
+            
+            <div class="p-4 border-t border-gray-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-sm font-bold">JD</div>
+                    <div>
+                        <p class="text-sm font-medium">John Doe</p>
+                        <p class="text-xs text-gray-500">admin@company.com</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Overview View -->
+            <div id="view-overview" class="p-8">
+                <h1 class="text-2xl font-bold mb-6">Dashboard Overview</h1>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                        <p class="text-gray-400 text-sm">Total API Calls</p>
+                        <p class="text-3xl font-bold mt-1">247,891</p>
+                        <p class="text-green-400 text-xs mt-2">↑ 12% from last month</p>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                        <p class="text-gray-400 text-sm">Revenue</p>
+                        <p class="text-3xl font-bold mt-1">$2,847</p>
+                        <p class="text-green-400 text-xs mt-2">↑ 8% from last month</p>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                        <p class="text-gray-400 text-sm">Active Users</p>
+                        <p class="text-3xl font-bold mt-1">1,247</p>
+                        <p class="text-green-400 text-xs mt-2">↑ 23 new today</p>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                        <p class="text-gray-400 text-sm">Uptime</p>
+                        <p class="text-3xl font-bold mt-1 text-green-400">99.99%</p>
+                        <p class="text-gray-500 text-xs mt-2">SLA compliant</p>
+                    </div>
+                </div>
+                
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                        <h3 class="font-bold mb-4">API Usage (Last 30 Days)</h3>
+                        <canvas id="usageChart" height="200"></canvas>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                        <h3 class="font-bold mb-4">Revenue Breakdown</h3>
+                        <canvas id="revenueChart" height="200"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                    <h3 class="font-bold mb-4">Recent Activity</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center py-2 border-b border-gray-800">
+                            <div><span class="text-indigo-400">API Key Created</span><p class="text-xs text-gray-500">Production Key - John Doe</p></div>
+                            <span class="text-xs text-gray-500">2 min ago</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-800">
+                            <div><span class="text-green-400">Payment Received</span><p class="text-xs text-gray-500">$499.00 - Enterprise Plan</p></div>
+                            <span class="text-xs text-gray-500">1 hour ago</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-800">
+                            <div><span class="text-blue-400">Model Compressed</span><p class="text-xs text-gray-500">Llama-3-70B → 14GB</p></div>
+                            <span class="text-xs text-gray-500">3 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- API Keys View -->
+            <div id="view-api_keys" class="p-8 hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold">API Keys</h1>
+                    <button onclick="createNewKey()" class="px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium">+ New API Key</button>
+                </div>
+                
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+                    <table class="w-full">
+                        <thead class="bg-gray-800 border-b border-gray-700">
+                            <tr>
+                                <th class="text-left p-4 text-sm font-medium text-gray-400">Name</th>
+                                <th class="text-left p-4 text-sm font-medium text-gray-400">Key ID</th>
+                                <th class="text-left p-4 text-sm font-medium text-gray-400">Created</th>
+                                <th class="text-left p-4 text-sm font-medium text-gray-400">Last Used</th>
+                                <th class="text-left p-4 text-sm font-medium text-gray-400">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-800">
+                                <td class="p-4">Production Key</td>
+                                <td class="p-4 font-mono text-xs">sk_sov_live_...a3f2</td>
+                                <td class="p-4 text-sm text-gray-400">2026-05-01</td>
+                                <td class="p-4 text-sm text-gray-400">2026-05-31</td>
+                                <td class="p-4"><button class="text-red-400 text-sm">Revoke</button></td>
+                            </tr>
+                            <tr class="border-b border-gray-800">
+                                <td class="p-4">Development Key</td>
+                                <td class="p-4 font-mono text-xs">sk_sov_dev_...b7k9</td>
+                                <td class="p-4 text-sm text-gray-400">2026-05-15</td>
+                                <td class="p-4 text-sm text-gray-400">2026-05-30</td>
+                                <td class="p-4"><button class="text-red-400 text-sm">Revoke</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Billing View -->
+            <div id="view-billing" class="p-8 hidden">
+                <h1 class="text-2xl font-bold mb-6">Billing & Invoices</h1>
+                
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-400 text-sm">Current Plan</p>
+                            <p class="text-xl font-bold">Enterprise Plan</p>
+                            <p class="text-sm text-gray-500">Billed monthly • $499/month</p>
+                        </div>
+                        <button class="px-4 py-2 border border-gray-700 rounded-lg text-sm">Manage Subscription</button>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+                    <h3 class="font-bold p-4 border-b border-gray-800">Recent Invoices</h3>
+                    <table class="w-full">
+                        <thead class="bg-gray-800">
+                            <tr>
+                                <th class="text-left p-4 text-sm text-gray-400">Invoice</th>
+                                <th class="text-left p-4 text-sm text-gray-400">Date</th>
+                                <th class="text-left p-4 text-sm text-gray-400">Amount</th>
+                                <th class="text-left p-4 text-sm text-gray-400">Status</th>
+                                <th class="text-left p-4 text-sm text-gray-400"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-800">
+                                <td class="p-4">INV-2026-05-001</td>
+                                <td class="p-4 text-gray-400">May 1, 2026</td>
+                                <td class="p-4">$499.00</td>
+                                <td class="p-4"><span class="px-2 py-1 bg-green-900 text-green-400 text-xs rounded-full">Paid</span></td>
+                                <td class="p-4"><button class="text-indigo-400 text-sm">Download PDF</button></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4">INV-2026-04-001</td>
+                                <td class="p-4 text-gray-400">Apr 1, 2026</td>
+                                <td class="p-4">$499.00</td>
+                                <td class="p-4"><span class="px-2 py-1 bg-green-900 text-green-400 text-xs rounded-full">Paid</span></td>
+                                <td class="p-4"><button class="text-indigo-400 text-sm">Download PDF</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Team View -->
+            <div id="view-team" class="p-8 hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold">Team Members</h1>
+                    <button onclick="inviteTeamMember()" class="px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium">+ Invite Member</button>
+                </div>
+                
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+                    <table class="w-full">
+                        <thead class="bg-gray-800">
+                            <tr>
+                                <th class="text-left p-4 text-sm text-gray-400">Name</th>
+                                <th class="text-left p-4 text-sm text-gray-400">Email</th>
+                                <th class="text-left p-4 text-sm text-gray-400">Role</th>
+                                <th class="text-left p-4 text-sm text-gray-400">Status</th>
+                                <th class="text-left p-4 text-sm text-gray-400"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-800">
+                                <td class="p-4">John Doe</td>
+                                <td class="p-4 text-gray-400">john@company.com</td>
+                                <td class="p-4">Admin</td>
+                                <td class="p-4"><span class="px-2 py-1 bg-green-900 text-green-400 text-xs rounded-full">Active</span></td>
+                                <td class="p-4"><button class="text-gray-500 text-sm">Remove</button></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4">Jane Smith</td>
+                                <td class="p-4 text-gray-400">jane@company.com</td>
+                                <td class="p-4">Developer</td>
+                                <td class="p-4"><span class="px-2 py-1 bg-yellow-900 text-yellow-400 text-xs rounded-full">Pending</span></td>
+                                <td class="p-4"><button class="text-gray-500 text-sm">Resend</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize charts
+        const usageCtx = document.getElementById('usageChart')?.getContext('2d');
+        if (usageCtx) {
+            new Chart(usageCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'API Calls',
+                        data: [12500, 18200, 21400, 24700],
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        fill: true
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: true }
+            });
+        }
+        
+        const revenueCtx = document.getElementById('revenueChart')?.getContext('2d');
+        if (revenueCtx) {
+            new Chart(revenueCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['TruthEngine', 'CentPay', 'AI Shrinker'],
+                    datasets: [{
+                        data: [45, 35, 20],
+                        backgroundColor: ['#4f46e5', '#10b981', '#f59e0b']
+                    }]
+                }
+            });
+        }
+        
+        function switchView(view) {
+            // Hide all views
+            document.querySelectorAll('[id^="view-"]').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`view-${view}`).classList.remove('hidden');
+            
+            // Update sidebar active state
+            document.querySelectorAll('.sidebar-item').forEach(el => {
+                el.classList.remove('active');
+                el.classList.add('text-gray-400');
+            });
+            document.querySelector(`[data-view="${view}"]`).classList.add('active');
+            document.querySelector(`[data-view="${view}"]`).classList.remove('text-gray-400');
+        }
+        
+        function createNewKey() {
+            alert('New API key wizard would open here');
+        }
+        
+        function inviteTeamMember() {
+            const email = prompt('Enter email address to invite:');
+            if (email) {
+                alert(`Invitation sent to ${email}`);
+            }
+        }
+    </script>
+</body>
+</html>
