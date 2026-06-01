@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-7xl mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-6">Usage Analytics</h1>
+
+        <!-- Date Range Selector -->
+        <div class="flex gap-4 mb-8">
+            <button class="px-4 py-2 bg-gray-800 rounded-lg text-sm">Last 7 Days</button>
+            <button class="px-4 py-2 bg-indigo-600 rounded-lg text-sm">Last 30 Days</button>
+            <button class="px-4 py-2 bg-gray-800 rounded-lg text-sm">Last 90 Days</button>
+            <button class="px-4 py-2 bg-gray-800 rounded-lg text-sm">Custom Range</button>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="font-bold mb-4">API Calls Over Time</h3>
+                <canvas id="apiCallsChart" height="250"></canvas>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="font-bold mb-4">Revenue by Engine</h3>
+                <canvas id="revenueChart" height="250"></canvas>
+            </div>
+        </div>
+
+        <!-- Top Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+                <p class="text-gray-400 text-sm">Total API Calls</p>
+                <p class="text-3xl font-bold">247,891</p>
+                <p class="text-green-400 text-xs mt-2">↑ 12% vs last period</p>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+                <p class="text-gray-400 text-sm">Active Users</p>
+                <p class="text-3xl font-bold">1,247</p>
+                <p class="text-green-400 text-xs mt-2">↑ 23 new</p>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+                <p class="text-gray-400 text-sm">Avg Response Time</p>
+                <p class="text-3xl font-bold text-green-400">47ms</p>
+                <p class="text-gray-500 text-xs mt-2">↓ 5ms improvement</p>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+                <p class="text-gray-400 text-sm">Error Rate</p>
+                <p class="text-3xl font-bold text-green-400">0.08%</p>
+                <p class="text-gray-500 text-xs mt-2">Below SLA threshold</p>
+            </div>
+        </div>
+
+        <!-- Top Users Table -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+            <h3 class="font-bold p-4 border-b border-gray-800">Top Users by API Calls</h3>
+            <table class="w-full">
+                <thead class="bg-gray-800">
+                    <tr><th class="p-3 text-left text-sm">User</th><th class="p-3 text-left text-sm">Organization</th><th class="p-3 text-left text-sm">API Calls</th><th class="p-3 text-left text-sm">Revenue</th></tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-800"><td class="p-3">Acme Corp</td><td class="p-3 text-gray-400">Enterprise</td><td class="p-3">87,234</td><td class="p-3">$4,990</td></tr>
+                    <tr class="border-b border-gray-800"><td class="p-3">TechCorp</td><td class="p-3 text-gray-400">Business</td><td class="p-3">45,123</td><td class="p-3">$2,495</td></tr>
+                    <tr><td class="p-3">StartupX</td><td class="p-3 text-gray-400">Developer</td><td class="p-3">12,456</td><td class="p-3">$490</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        new Chart(document.getElementById('apiCallsChart'), {
+            type: 'line',
+            data: { labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], datasets: [{ label: 'API Calls', data: [12500, 18200, 21400, 24700], borderColor: '#4f46e5', fill: true }] }
+        });
+        new Chart(document.getElementById('revenueChart'), {
+            type: 'doughnut',
+            data: { labels: ['TruthEngine', 'CentPay', 'AI Shrinker'], datasets: [{ data: [45, 35, 20], backgroundColor: ['#4f46e5', '#10b981', '#f59e0b'] }] }
+        });
+    </script>
+</body>
+</html>
