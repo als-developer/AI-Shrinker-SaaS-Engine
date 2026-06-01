@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Settings | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-3xl mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-6">Security Settings</h1>
+
+        <div class="space-y-6">
+            <!-- Two-Factor Authentication -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <div class="flex justify-between items-center">
+                    <div><h3 class="font-bold">Two-Factor Authentication</h3><p class="text-sm text-gray-400">Add an extra layer of security to your account</p></div>
+                    <button id="enable2FA" class="px-4 py-2 bg-indigo-600 rounded-lg text-sm">Enable</button>
+                </div>
+            </div>
+
+            <!-- Session Management -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="font-bold mb-4">Active Sessions</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-800">
+                        <div><span class="font-medium">Chrome on Windows</span><p class="text-xs text-gray-500">IP: 192.168.1.100 • Last active: Now</p></div>
+                        <button class="text-red-400 text-sm">Revoke</button>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <div><span class="font-medium">Safari on iPhone</span><p class="text-xs text-gray-500">IP: 203.0.113.50 • Last active: 2 hours ago</p></div>
+                        <button class="text-red-400 text-sm">Revoke</button>
+                    </div>
+                </div>
+                <button class="mt-4 text-sm text-gray-400">Sign out of all devices</button>
+            </div>
+
+            <!-- IP Whitelist -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="font-bold mb-4">IP Whitelist</h3>
+                <p class="text-sm text-gray-400 mb-3">Restrict API access to specific IP addresses</p>
+                <div class="flex gap-2"><input type="text" placeholder="Enter IP address" class="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2"><button class="px-4 py-2 bg-gray-700 rounded-lg text-sm">Add</button></div>
+                <div class="mt-3"><div class="flex justify-between items-center p-2 bg-gray-800 rounded-lg"><span class="font-mono text-xs">192.168.1.0/24</span><button class="text-red-400 text-xs">Remove</button></div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('enable2FA')?.addEventListener('click', () => {
+            alert('2FA setup would begin here. You would scan a QR code with Google Authenticator.');
+        });
+    </script>
+</body>
+</html>
