@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Sandbox | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-5xl mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-2">API Test Sandbox</h1>
+        <p class="text-gray-400 mb-6">Test API endpoints directly in your browser</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Request Panel -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="font-bold mb-4">Request Configuration</h3>
+                <div class="mb-4"><label class="block text-sm mb-2">Endpoint</label><select id="endpoint" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2"><option value="fact_check">TruthEngine - fact_check</option><option value="micro_charge">CentPay - micro_charge</option><option value="bulk_compress">AI Shrinker - bulk_compress</option></select></div>
+                <div class="mb-4"><label class="block text-sm mb-2">API Key</label><input type="password" id="apiKey" placeholder="sk_sov_..." class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2"></div>
+                <div class="mb-4"><label class="block text-sm mb-2">Request Body (JSON)</label><textarea id="requestBody" rows="6" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 font-mono text-xs">{
+  "user_id": "sandbox_test",
+  "execution_mode": "fact_check",
+  "text_payload": "The Earth revolves around the Sun."
+}</textarea></div>
+                <button onclick="sendRequest()" class="w-full bg-indigo-600 hover:bg-indigo-500 py-3 rounded-xl font-semibold">Send Request</button>
+            </div>
+
+            <!-- Response Panel -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="font-bold mb-4">Response</h3>
+                <div id="responseArea" class="bg-gray-800 rounded-xl p-4 h-64 overflow-auto font-mono text-xs text-green-400">
+                    Click "Send Request" to see response...
+                </div>
+                <div class="mt-4 flex gap-2"><span class="text-xs text-gray-500">Status:</span><span id="statusCode" class="text-xs">-</span><span class="text-xs text-gray-500 ml-4">Time:</span><span id="responseTime" class="text-xs">-</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function sendRequest() {
+            const endpoint = document.getElementById('endpoint').value;
+            const apiKey = document.getElementById('apiKey').value;
+            let body = document.getElementById('requestBody').value;
+            
+            try { body = JSON.parse(body); } catch(e) { alert('Invalid JSON'); return; }
+            
+            const startTime = performance.now();
+            try {
+                const response = await fetch('/v1/sovereign/execute', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Sovereign-Key': apiKey },
+                    body: JSON.stringify(body)
+                });
+                const endTime = performance.now();
+                const data = await response.json();
+                document.getElementById('responseArea').innerHTML = JSON.stringify(data, null, 2);
+                document.getElementById('statusCode').innerHTML = response.status;
+                document.getElementById('responseTime').innerHTML = Math.round(endTime - startTime) + 'ms';
+            } catch(err) {
+                document.getElementById('responseArea').innerHTML = 'Error: ' + err.message;
+                document.getElementById('statusCode').innerHTML = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
