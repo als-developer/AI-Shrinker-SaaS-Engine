@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Keys | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-5xl mx-auto p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-bold">API Keys</h1>
+            <button onclick="createNewKey()" class="px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-500">+ Generate New Key</button>
+        </div>
+
+        <div class="bg-yellow-950/30 border border-yellow-800 rounded-xl p-4 mb-6">
+            <p class="text-sm text-yellow-300">⚠️ API keys grant full access to your account. Store them securely and rotate regularly.</p>
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-800">
+                    <tr><th class="p-4 text-left text-sm">Name</th><th class="p-4 text-left text-sm">Key ID</th><th class="p-4 text-left text-sm">Created</th><th class="p-4 text-left text-sm">Last Used</th><th class="p-4 text-left text-sm">Actions</th></tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-800">
+                        <td class="p-4 font-medium">Production Key</td>
+                        <td class="p-4 font-mono text-xs text-gray-400">sk_sov_live_...a3f2k9</td>
+                        <td class="p-4 text-sm text-gray-400">2026-05-01</td>
+                        <td class="p-4 text-sm text-gray-400">2026-05-31</td>
+                        <td class="p-4"><button onclick="rotateKey(this)" class="text-indigo-400 text-sm mr-3">Rotate</button><button onclick="revokeKey(this)" class="text-red-400 text-sm">Revoke</button></td>
+                    </tr>
+                    <tr class="border-b border-gray-800">
+                        <td class="p-4 font-medium">Development Key</td>
+                        <td class="p-4 font-mono text-xs text-gray-400">sk_sov_dev_...b7k9m2</td>
+                        <td class="p-4 text-sm text-gray-400">2026-05-15</td>
+                        <td class="p-4 text-sm text-gray-400">2026-05-30</td>
+                        <td class="p-4"><button onclick="rotateKey(this)" class="text-indigo-400 text-sm mr-3">Rotate</button><button onclick="revokeKey(this)" class="text-red-400 text-sm">Revoke</button></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 font-medium">CI/CD Pipeline</td>
+                        <td class="p-4 font-mono text-xs text-gray-400">sk_sov_ci_...x4r8t1</td>
+                        <td class="p-4 text-sm text-gray-400">2026-05-20</td>
+                        <td class="p-4 text-sm text-gray-400">2026-05-29</td>
+                        <td class="p-4"><button onclick="rotateKey(this)" class="text-indigo-400 text-sm mr-3">Rotate</button><button onclick="revokeKey(this)" class="text-red-400 text-sm">Revoke</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function createNewKey() {
+            const name = prompt("Enter a name for this API key:");
+            if (name) {
+                const newKey = "sk_sov_live_" + Math.random().toString(36).substring(2, 15);
+                alert(`Your new API key is:\n\n${newKey}\n\nSave this immediately. It will not be shown again.`);
+                location.reload();
+            }
+        }
+        
+        function rotateKey(btn) {
+            if (confirm("Rotating this key will deactivate the current key and generate a new one. Continue?")) {
+                alert("Key rotated successfully. New key has been emailed to you.");
+            }
+        }
+        
+        function revokeKey(btn) {
+            if (confirm("Revoke this API key? This action cannot be undone.")) {
+                alert("API key revoked.");
+                btn.closest('tr').remove();
+            }
+        }
+    </script>
+</body>
+</html>
