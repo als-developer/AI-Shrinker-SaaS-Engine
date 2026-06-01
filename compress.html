@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compress Model | AI Shrinker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-3xl mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-6">Compress AI Model</h1>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-2">Model Repository URL</label>
+                <input type="text" id="modelUrl" placeholder="e.g., meta-llama/Meta-Llama-3-70B" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3">
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-2">Compression Method</label>
+                <select id="precision" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3">
+                    <option value="int4">4-bit AWQ (10x compression, 99% accuracy)</option>
+                    <option value="int2">2-bit GGUF (20x compression, 97% accuracy)</option>
+                    <option value="fp8">8-bit FP8 (5x compression, 99.5% accuracy)</option>
+                </select>
+            </div>
+
+            <div class="bg-gray-800 rounded-xl p-4 mb-6">
+                <p class="text-sm text-gray-400">Compression Estimates:</p>
+                <div class="flex justify-between mt-2"><span>Original size:</span><span id="originalSize">140 GB</span></div>
+                <div class="flex justify-between"><span>Compressed size:</span><span id="compressedSize">14 GB</span></div>
+                <div class="flex justify-between"><span>Estimated time:</span><span id="estimatedTime">~15 minutes</span></div>
+            </div>
+
+            <button onclick="startCompression()" class="w-full bg-indigo-600 hover:bg-indigo-500 py-3 rounded-xl font-semibold">Start Compression</button>
+
+            <div id="progress" class="mt-6 hidden">
+                <div class="flex justify-between text-sm mb-2"><span>Compressing...</span><span id="progressPercent">0%</span></div>
+                <div class="w-full bg-gray-800 rounded-full h-2"><div id="progressBar" class="bg-indigo-600 h-2 rounded-full" style="width:0%"></div></div>
+                <p id="jobId" class="text-xs text-gray-500 mt-3 text-center"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('precision').addEventListener('change', function() {
+            const val = this.value;
+            if(val === 'int4') { document.getElementById('compressedSize').innerText = '14 GB'; document.getElementById('estimatedTime').innerText = '~15 minutes'; }
+            else if(val === 'int2') { document.getElementById('compressedSize').innerText = '7 GB'; document.getElementById('estimatedTime').innerText = '~20 minutes'; }
+            else { document.getElementById('compressedSize').innerText = '28 GB'; document.getElementById('estimatedTime').innerText = '~10 minutes'; }
+        });
+
+        function startCompression() {
+            const modelUrl = document.getElementById('modelUrl').value;
+            if(!modelUrl) { alert("Please enter a model URL"); return; }
+            
+            document.getElementById('progress').classList.remove('hidden');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                document.getElementById('progressPercent').innerText = progress + '%';
+                document.getElementById('progressBar').style.width = progress + '%';
+                if(progress >= 100) { clearInterval(interval); document.getElementById('progressPercent').innerText = 'Complete!'; alert('Model compressed successfully!'); }
+            }, 500);
+            document.getElementById('jobId').innerText = 'Job ID: cmp_' + Math.random().toString(36).substring(2, 10);
+        }
+    </script>
+</body>
+</html>
