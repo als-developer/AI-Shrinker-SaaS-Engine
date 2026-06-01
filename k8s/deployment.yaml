@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sovereign-api
+  namespace: sovereign-grid
+  labels:
+    app: sovereign-api
+    tier: backend
+    version: v31
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sovereign-api
+  template:
+    metadata:
+      labels:
+        app: sovereign-api
+        tier: backend
+        version: v31
+    spec:
+      containers:
+      - name: api
+        image: sovereigngrid/api:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+        env:
+        - name: SUPABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: sovereign-secrets
+              key: supabase-url
+        - name: SUPABASE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sovereign-secrets
+              key: supabase-key
+        - name: REDIS_HOST
+          value: redis-service
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-secret
+              key: password
+        - name: ENVIRONMENT
+          value: "production"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      - name: envoy-sidecar
+        image: envoyproxy/envoy:latest
+        ports:
+        - containerPort: 9901
+        volumeMounts:
+        - name: envoy-config
+          mountPath: /etc/envoy
+      volumes:
+      - name: envoy-config
+        configMap:
+          name: envoy-config
