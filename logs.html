@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Logs | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-7xl mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-6">Audit Logs</h1>
+
+        <!-- Filters -->
+        <div class="flex gap-4 mb-6 flex-wrap">
+            <select class="bg-gray-900 border border-gray-800 rounded-lg px-4 py-2 text-sm">
+                <option>All Actions</option><option>API Calls</option><option>Key Created</option><option>Key Revoked</option><option>Payment</option>
+            </select>
+            <select class="bg-gray-900 border border-gray-800 rounded-lg px-4 py-2 text-sm">
+                <option>Last 24 Hours</option><option>Last 7 Days</option><option>Last 30 Days</option><option>Custom Range</option>
+            </select>
+            <input type="text" placeholder="Search by user or IP..." class="bg-gray-900 border border-gray-800 rounded-lg px-4 py-2 text-sm flex-1">
+            <button class="px-4 py-2 bg-indigo-600 rounded-lg text-sm">Apply Filters</button>
+        </div>
+
+        <!-- Logs Table -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-800">
+                    <tr><th class="p-3 text-left text-xs">Timestamp</th><th class="p-3 text-left text-xs">Action</th><th class="p-3 text-left text-xs">User</th><th class="p-3 text-left text-xs">Resource</th><th class="p-3 text-left text-xs">IP Address</th><th class="p-3 text-left text-xs">Status</th></tr>
+                </thead>
+                <tbody class="text-sm">
+                    <tr class="border-b border-gray-800"><td class="p-3 text-gray-400">2026-05-31 14:32:21</td><td>api_call</td><td>john@acme.com</td><td>/v1/sovereign/execute</td><td>192.168.1.1</td><td class="text-green-400">200</td></tr>
+                    <tr class="border-b border-gray-800"><td class="p-3 text-gray-400">2026-05-31 14:28:15</td><td>key_created</td><td>admin@sovereign.com</td><td>Production Key</td><td>10.0.0.1</td><td class="text-green-400">Success</td></tr>
+                    <tr class="border-b border-gray-800"><td class="p-3 text-gray-400">2026-05-31 14:15:42</td><td>payment</td><td>customer@example.com</td><td>$49.00 USD</td><td>203.0.113.5</td><td class="text-green-400">Completed</td></tr>
+                    <tr class="border-b border-gray-800"><td class="p-3 text-gray-400">2026-05-31 13:58:03</td><td>job_compress</td><td>enterprise@techcorp.com</td><td>Llama-3-70B</td><td>198.51.100.2</td><td class="text-green-400">Completed</td></tr>
+                    <tr><td class="p-3 text-gray-400">2026-05-31 13:22:17</td><td>login</td><td>developer@startup.io</td><td>Dashboard Login</td><td>203.0.113.10</td><td class="text-green-400">Success</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center gap-2 mt-6">
+            <button class="px-3 py-1 bg-gray-800 rounded">Previous</button>
+            <button class="px-3 py-1 bg-indigo-600 rounded">1</button>
+            <button class="px-3 py-1 bg-gray-800 rounded">2</button>
+            <button class="px-3 py-1 bg-gray-800 rounded">3</button>
+            <button class="px-3 py-1 bg-gray-800 rounded">Next</button>
+        </div>
+    </div>
+</body>
+</html>
