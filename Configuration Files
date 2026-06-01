@@ -1,0 +1,14 @@
+# FILE 182: .gitignore - Git ignore rules
+# FILE 183: .pre-commit-config.yaml - Pre-commit hooks
+# FILE 184: .flake8 - Flake8 configuration
+# FILE 185: .pytest.ini - Pytest configuration
+# FILE 186: mypy.ini - MyPy type checking
+# FILE 187: pyproject.toml - Python project configuration
+# FILE 188: setup.py - Package setup
+# FILE 189: MANIFEST.in - Package manifest
+# FILE 190: .dockerignore - Docker ignore
+# FILE 191: .env.production - Production environment
+# FILE 192: .env.staging - Staging environment
+# FILE 193: .env.test - Test environment
+# FILE 194: logging.conf - Logging configuration
+# FILE 195: alembic.ini - Alembic migrations config
