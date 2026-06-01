@@ -1,0 +1,46 @@
+name: Staging Environment Deployment
+
+on:
+  push:
+    branches: [ develop ]
+  workflow_dispatch:
+
+env:
+  STAGING_URL: https://staging.sovereigngrid.com
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+      
+      - name: Deploy to Railway Staging
+        run: |
+          railway up --service=api --environment=staging
+          railway up --service=worker --environment=staging
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      
+      - name: Run smoke tests
+        run: |
+          python tests/smoke/smoke_test.py --url ${{ env.STAGING_URL }}
+      
+      - name: Notify staging deployment
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"🟡 Staging deployment completed: ${{ github.sha }}"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
