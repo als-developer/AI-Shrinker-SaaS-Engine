@@ -1,0 +1,193 @@
+{
+  "dashboard": {
+    "title": "Sovereign Grid - Production Monitoring",
+    "version": 31,
+    "timezone": "browser",
+    "refresh": "30s",
+    "panels": [
+      {
+        "id": 1,
+        "title": "API Requests Per Second",
+        "type": "graph",
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+        "targets": [
+          {
+            "expr": "rate(sovereign_api_requests_total[5m])",
+            "legendFormat": "{{ endpoint }} - {{ status }}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqps",
+            "color": { "mode": "palette-classic" }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "API Latency (P95)",
+        "type": "graph",
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(sovereign_api_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{ endpoint }}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s",
+            "color": { "mode": "palette-classic" }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "Transaction Volume (USD)",
+        "type": "stat",
+        "gridPos": { "h": 4, "w": 4, "x": 0, "y": 8 },
+        "targets": [
+          {
+            "expr": "sum(increase(sovereign_transaction_amount_usd_total[24h]))",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "decimals": 2,
+            "color": { "mode": "thresholds" },
+            "thresholds": {
+              "steps": [
+                { "color": "green", "value": null }
+              ]
+            }
+          }
+        },
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        }
+      },
+      {
+        "id": 4,
+        "title": "Active Users",
+        "type": "stat",
+        "gridPos": { "h": 4, "w": 4, "x": 4, "y": 8 },
+        "targets": [
+          {
+            "expr": "sum(sovereign_active_users)",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": { "mode": "thresholds" },
+            "thresholds": {
+              "steps": [
+                { "color": "blue", "value": null }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "title": "System CPU Usage",
+        "type": "gauge",
+        "gridPos": { "h": 4, "w": 4, "x": 8, "y": 8 },
+        "targets": [
+          {
+            "expr": "avg(node_cpu_seconds_total{mode='user'})",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "color": {
+              "mode": "thresholds",
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "yellow", "value": 70 },
+                { "color": "red", "value": 85 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 6,
+        "title": "Error Rate by Endpoint",
+        "type": "table",
+        "gridPos": { "h": 8, "w": 8, "x": 0, "y": 12 },
+        "targets": [
+          {
+            "expr": "sum(rate(sovereign_api_requests_total{status=~'5..'}[5m])) by (endpoint) / sum(rate(sovereign_api_requests_total[5m])) by (endpoint)",
+            "format": "table",
+            "instant": true,
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "sortBy": [{ "desc": true }]
+        }
+      },
+      {
+        "id": 7,
+        "title": "Cache Hit Rate",
+        "type": "graph",
+        "gridPos": { "h": 8, "w": 8, "x": 8, "y": 12 },
+        "targets": [
+          {
+            "expr": "sum(rate(sovereign_cache_hits_total[5m])) / (sum(rate(sovereign_cache_hits_total[5m])) + sum(rate(sovereign_cache_misses_total[5m])))",
+            "legendFormat": "hit_rate",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percentunit",
+            "color": { "mode": "palette-classic" }
+          }
+        }
+      },
+      {
+        "id": 8,
+        "title": "Queue Sizes",
+        "type": "graph",
+        "gridPos": { "h": 8, "w": 8, "x": 16, "y": 12 },
+        "targets": [
+          {
+            "expr": "sovereign_queue_size",
+            "legendFormat": "{{ queue_name }}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": { "mode": "palette-classic" }
+          }
+        }
+      }
+    ],
+    "annotations": {
+      "list": [
+        {
+          "name": "Deployments",
+          "type": "tags",
+          "datasource": "Prometheus",
+          "expr": "sovereign_deployments_info",
+          "tagKeys": "version",
+          "titleFormat": "Deployment",
+          "textFormat": "Version {{ version }}"
+        }
+      ]
+    }
+  }
+}
