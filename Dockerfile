@@ -1,7 +1,7 @@
 # Dockerfile - Production Container for Sovereign Grid API
 # Version: 31.0
 
-FROM python:3.11-slim as builder
+FROM python:3.14-slim as builder
 
 # Install system dependencies for compilation
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -18,7 +18,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 # Final stage
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 # Create non-root user
 RUN groupadd -r sovereign && useradd -r -g sovereign sovereign
