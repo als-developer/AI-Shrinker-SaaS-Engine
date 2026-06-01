@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhooks | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-5xl mx-auto p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-bold">Webhooks</h1>
+            <button onclick="createWebhook()" class="px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium">+ Add Webhook</button>
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-800">
+                    <tr><th class="p-4 text-left text-sm">URL</th><th class="p-4 text-left text-sm">Events</th><th class="p-4 text-left text-sm">Status</th><th class="p-4 text-left text-sm">Last Delivery</th><th class="p-4 text-left text-sm"></th></tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-800">
+                        <td class="p-4 font-mono text-xs">https://api.myapp.com/webhooks/sovereign</td>
+                        <td class="p-4 text-sm">payment.success, job.completed</td>
+                        <td class="p-4"><span class="px-2 py-1 bg-green-900 text-green-400 text-xs rounded">Active</span></td>
+                        <td class="p-4 text-sm text-gray-400">2 min ago</td>
+                        <td class="p-4"><button class="text-red-400 text-sm">Delete</button></td>
+                    </tr>
+                    <tr class="border-b border-gray-800">
+                        <td class="p-4 font-mono text-xs">https://api.myapp.com/webhooks/logs</td>
+                        <td class="p-4 text-sm">all</td>
+                        <td class="p-4"><span class="px-2 py-1 bg-green-900 text-green-400 text-xs rounded">Active</span></td>
+                        <td class="p-4 text-sm text-gray-400">15 min ago</td>
+                        <td class="p-4"><button class="text-red-400 text-sm">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Event Types -->
+        <div class="mt-8 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+            <h3 class="font-bold mb-4">Available Webhook Events</h3>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full"></span> payment.success</div>
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> payment.failed</div>
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-purple-500 rounded-full"></span> job.completed</div>
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-yellow-500 rounded-full"></span> job.failed</div>
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-indigo-500 rounded-full"></span> api_key.created</div>
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-red-500 rounded-full"></span> api_key.revoked</div>
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-cyan-500 rounded-full"></span> organization.created</div>
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-pink-500 rounded-full"></span> sla.violation</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createWebhook() {
+            const url = prompt("Enter webhook URL (https://...):");
+            if (url) {
+                alert(`Webhook "${url}" has been created. We'll send a test event shortly.`);
+            }
+        }
+    </script>
+</body>
+</html>
