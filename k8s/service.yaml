@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sovereign-api-service
+  namespace: sovereign-grid
+  labels:
+    app: sovereign-api
+spec:
+  selector:
+    app: sovereign-api
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8000
+    protocol: TCP
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  type: LoadBalancer
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sovereign-api-headless
+  namespace: sovereign-grid
+spec:
+  clusterIP: None
+  selector:
+    app: sovereign-api
+  ports:
+  - port: 8000
+    targetPort: 8000
