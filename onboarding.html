@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-3xl mx-auto p-8">
+        <div class="text-center mb-8"><span class="text-5xl">🚀</span><h1 class="text-3xl font-bold mt-4">Welcome to Sovereign Grid</h1><p class="text-gray-400 mt-2">Let's get you set up in 3 simple steps</p></div>
+
+        <!-- Step 1 -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-4">
+            <div class="flex items-center gap-4"><div class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center font-bold">1</div><div><h3 class="font-bold">Create Your Account</h3><p class="text-sm text-gray-400">Enter your details to get started</p></div></div>
+            <div class="mt-4 grid grid-cols-2 gap-4"><input type="text" placeholder="Full Name" class="bg-gray-800 border border-gray-700 rounded-xl px-4 py-2"><input type="email" placeholder="Email" class="bg-gray-800 border border-gray-700 rounded-xl px-4 py-2"></div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-4">
+            <div class="flex items-center gap-4"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold">2</div><div><h3 class="font-bold">Choose Your Plan</h3><p class="text-sm text-gray-400">Select the plan that fits your needs</p></div></div>
+            <div class="mt-4 grid grid-cols-3 gap-3"><button class="p-3 bg-gray-800 rounded-xl text-center border border-gray-700">Free<br><span class="text-xs text-gray-500">$0/mo</span></button><button class="p-3 bg-indigo-600 rounded-xl text-center border border-indigo-500">Developer<br><span class="text-xs">$49/mo</span></button><button class="p-3 bg-gray-800 rounded-xl text-center border border-gray-700">Business<br><span class="text-xs text-gray-500">$499/mo</span></button></div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8">
+            <div class="flex items-center gap-4"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold">3</div><div><h3 class="font-bold">Generate API Key</h3><p class="text-sm text-gray-400">Your key will be shown only once</p></div></div>
+            <button onclick="generateKey()" class="mt-4 w-full py-3 bg-indigo-600 rounded-xl font-semibold">Generate API Key</button>
+            <div id="keyDisplay" class="mt-4 hidden p-4 bg-gray-800 rounded-xl text-center"><p class="text-xs text-gray-400 mb-2">Your API Key (save immediately):</p><code id="newKey" class="text-sm text-green-400"></code></div>
+        </div>
+
+        <button onclick="completeOnboarding()" class="w-full py-3 bg-green-600 hover:bg-green-500 rounded-xl font-semibold transition">Complete Setup & Go to Dashboard</button>
+    </div>
+
+    <script>
+        function generateKey() { const key = 'sk_sov_live_' + Math.random().toString(36).substring(2, 15); document.getElementById('newKey').innerText = key; document.getElementById('keyDisplay').classList.remove('hidden'); }
+        function completeOnboarding() { alert('Onboarding complete! Redirecting to dashboard...'); window.location.href = '/dashboard'; }
+    </script>
+</body>
+</html>
