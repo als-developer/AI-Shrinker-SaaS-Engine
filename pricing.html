@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .pricing-card { transition: transform 0.2s, box-shadow 0.2s; }
+        .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <nav class="border-b border-gray-800 bg-gray-900/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">💰</span>
+                <span class="font-bold text-xl bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Pricing</span>
+            </div>
+            <a href="/dashboard" class="text-sm text-gray-400 hover:text-white">Dashboard</a>
+        </div>
+    </nav>
+
+    <section class="max-w-7xl mx-auto px-6 py-16 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Simple, Transparent Pricing</h1>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">Choose the plan that fits your needs. All plans include access to TruthEngine, CentPay, and AI Shrinker.</p>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 pb-20">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Free Tier -->
+            <div class="pricing-card bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="text-lg font-bold">Free</h3>
+                <p class="text-3xl font-bold mt-2">$0<span class="text-sm font-normal text-gray-400">/month</span></p>
+                <ul class="mt-6 space-y-3 text-sm">
+                    <li class="text-gray-400">✓ 100 API calls/month</li>
+                    <li class="text-gray-400">✓ Basic support</li>
+                    <li class="text-gray-400">✓ Community access</li>
+                    <li class="text-gray-500">✗ SLA guarantee</li>
+                    <li class="text-gray-500">✗ Team accounts</li>
+                </ul>
+                <button class="w-full mt-8 py-2 border border-gray-700 rounded-lg text-sm hover:border-indigo-500 transition">Get Started</button>
+            </div>
+
+            <!-- Developer Tier -->
+            <div class="pricing-card bg-gray-900 border border-indigo-500 rounded-2xl p-6 relative">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-0.5 bg-indigo-600 text-xs rounded-full">Popular</div>
+                <h3 class="text-lg font-bold">Developer</h3>
+                <p class="text-3xl font-bold mt-2">$49<span class="text-sm font-normal text-gray-400">/month</span></p>
+                <ul class="mt-6 space-y-3 text-sm">
+                    <li class="text-gray-400">✓ 10,000 API calls/month</li>
+                    <li class="text-gray-400">✓ Priority support</li>
+                    <li class="text-gray-400">✓ API key rotation</li>
+                    <li class="text-gray-400">✓ Webhook support</li>
+                    <li class="text-gray-500">✗ SLA guarantee</li>
+                </ul>
+                <button class="w-full mt-8 py-2 bg-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-500 transition">Choose Plan</button>
+            </div>
+
+            <!-- Business Tier -->
+            <div class="pricing-card bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="text-lg font-bold">Business</h3>
+                <p class="text-3xl font-bold mt-2">$499<span class="text-sm font-normal text-gray-400">/month</span></p>
+                <ul class="mt-6 space-y-3 text-sm">
+                    <li class="text-gray-400">✓ 100,000 API calls</li>
+                    <li class="text-gray-400">✓ 24/7 support</li>
+                    <li class="text-gray-400">✓ SLA guarantee (99.95%)</li>
+                    <li class="text-gray-400">✓ Team accounts (5 users)</li>
+                    <li class="text-gray-400">✓ Advanced analytics</li>
+                </ul>
+                <button class="w-full mt-8 py-2 border border-gray-700 rounded-lg text-sm hover:border-indigo-500 transition">Contact Sales</button>
+            </div>
+
+            <!-- Enterprise Tier -->
+            <div class="pricing-card bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="text-lg font-bold">Enterprise</h3>
+                <p class="text-2xl font-bold mt-2">Custom</p>
+                <ul class="mt-6 space-y-3 text-sm">
+                    <li class="text-gray-400">✓ Unlimited API calls</li>
+                    <li class="text-gray-400">✓ Dedicated support</li>
+                    <li class="text-gray-400">✓ 99.99% SLA</li>
+                    <li class="text-gray-400">✓ Unlimited team seats</li>
+                    <li class="text-gray-400">✓ On-premise option</li>
+                    <li class="text-gray-400">✓ Custom contracts</li>
+                </ul>
+                <button class="w-full mt-8 py-2 border border-gray-700 rounded-lg text-sm hover:border-indigo-500 transition">Contact Sales</button>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="mt-16 text-center">
+            <h2 class="text-2xl font-bold mb-8">Frequently Asked Questions</h2>
+            <div class="grid md:grid-cols-2 gap-6 text-left max-w-3xl mx-auto">
+                <div>
+                    <h3 class="font-bold mb-2">What happens if I exceed my plan limits?</h3>
+                    <p class="text-sm text-gray-400">You'll be notified and automatically upgraded to the next tier or charged overage fees.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">Can I switch plans anytime?</h3>
+                    <p class="text-sm text-gray-400">Yes, you can upgrade or downgrade at any time from your dashboard.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">Do you offer annual discounts?</h3>
+                    <p class="text-sm text-gray-400">Yes, annual plans receive a 20% discount. Contact sales for details.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">Is there a free trial?</h3>
+                    <p class="text-sm text-gray-400">Yes, new accounts receive $10 in free credits to test the API.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
