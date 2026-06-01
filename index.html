@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Grid | Developer Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .code-block { background: #1e1e2e; border-radius: 12px; padding: 16px; font-family: 'Monaco', monospace; font-size: 13px; overflow-x: auto; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <!-- Navigation -->
+    <nav class="border-b border-gray-800 bg-gray-900/50 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">⚡</span>
+                <span class="font-bold text-xl bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Sovereign Grid</span>
+            </div>
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="#features" class="text-gray-400 hover:text-white transition">Features</a>
+                <a href="#pricing" class="text-gray-400 hover:text-white transition">Pricing</a>
+                <a href="/api/docs" class="text-gray-400 hover:text-white transition">API Docs</a>
+                <a href="/dashboard" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition font-medium">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto px-6 py-20 text-center">
+        <div class="inline-block px-3 py-1 bg-indigo-950 border border-indigo-800 rounded-full text-xs font-medium text-indigo-400 mb-6">
+            🔥 Now Live: Sovereign Grid v31.0
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
+            Build on the<br>Lockless Edge Mesh
+        </h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+            One API. Three Engines. Infinite Scale.<br>
+            AI Fact-Checking · Micropayments · Model Compression
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button onclick="openOnboardingModal()" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition">
+                🚀 Get API Keys
+            </button>
+            <a href="/api/docs" class="px-8 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl font-semibold transition border border-gray-700">
+                📖 Read Documentation
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-3xl font-bold text-center mb-12">Three Engines. One Platform.</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <div class="text-3xl mb-4">🛡️</div>
+                <h3 class="text-xl font-bold mb-2">TruthEngine</h3>
+                <p class="text-gray-400 text-sm mb-4">AI fact-checking with 99% accuracy. Verify any claim in milliseconds.</p>
+                <div class="text-xs text-indigo-400">99.99% Uptime • GDPR Compliant</div>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <div class="text-3xl mb-4">💰</div>
+                <h3 class="text-xl font-bold mb-2">CentPay Ledger</h3>
+                <p class="text-gray-400 text-sm mb-4">Micro-payments from $0.01. Mobile money & crypto support.</p>
+                <div class="text-xs text-indigo-400">M-Pesa • USDC • 5% Cashback</div>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <div class="text-3xl mb-4">⚡</div>
+                <h3 class="text-xl font-bold mb-2">AI Shrinker</h3>
+                <p class="text-gray-400 text-sm mb-4">10x model compression. 90% cost reduction on GPU infrastructure.</p>
+                <div class="text-xs text-indigo-400">INT4/INT2 • 99% Accuracy Retention</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-3xl font-bold text-center mb-12">Simple, Transparent Pricing</h2>
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="text-lg font-bold">Free</h3>
+                <p class="text-2xl font-bold mt-2">$0<span class="text-sm font-normal text-gray-400">/month</span></p>
+                <ul class="mt-4 space-y-2 text-sm text-gray-400">
+                    <li>✓ 100 API calls/month</li>
+                    <li>✓ Basic support</li>
+                    <li>✓ Community access</li>
+                </ul>
+                <button class="w-full mt-6 py-2 border border-gray-700 rounded-lg text-sm">Get Started</button>
+            </div>
+            <div class="bg-gray-900 border border-indigo-500 rounded-2xl p-6 relative">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-0.5 bg-indigo-600 text-xs rounded-full">Popular</div>
+                <h3 class="text-lg font-bold">Developer</h3>
+                <p class="text-2xl font-bold mt-2">$49<span class="text-sm font-normal text-gray-400">/month</span></p>
+                <ul class="mt-4 space-y-2 text-sm text-gray-400">
+                    <li>✓ 10,000 API calls/month</li>
+                    <li>✓ Priority support</li>
+                    <li>✓ API key rotation</li>
+                    <li>✓ Webhook support</li>
+                </ul>
+                <button class="w-full mt-6 py-2 bg-indigo-600 rounded-lg text-sm">Choose Plan</button>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="text-lg font-bold">Business</h3>
+                <p class="text-2xl font-bold mt-2">$499<span class="text-sm font-normal text-gray-400">/month</span></p>
+                <ul class="mt-4 space-y-2 text-sm text-gray-400">
+                    <li>✓ 100,000 API calls</li>
+                    <li>✓ 24/7 support</li>
+                    <li>✓ SLA guarantee</li>
+                    <li>✓ Team accounts</li>
+                </ul>
+                <button class="w-full mt-6 py-2 border border-gray-700 rounded-lg text-sm">Contact Sales</button>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 class="text-lg font-bold">Enterprise</h3>
+                <p class="text-2xl font-bold mt-2">Custom</p>
+                <ul class="mt-4 space-y-2 text-sm text-gray-400">
+                    <li>✓ Unlimited API calls</li>
+                    <li>✓ Dedicated support</li>
+                    <li>✓ Custom SLA</li>
+                    <li>✓ On-premise option</li>
+                </ul>
+                <button class="w-full mt-6 py-2 border border-gray-700 rounded-lg text-sm">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Code Block -->
+    <section class="max-w-4xl mx-auto px-6 py-12">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+            <h3 class="font-bold mb-3">🚀 Quick Start — Verify a Claim in 10 Seconds</h3>
+            <div class="code-block">
+                <span class="text-purple-400">curl</span> <span class="text-yellow-400">-X POST</span> https://api.sovereigngrid.com/v1/sovereign/execute \<br>
+                &nbsp;&nbsp;<span class="text-purple-400">-H</span> <span class="text-green-400">"Content-Type: application/json"</span> \<br>
+                &nbsp;&nbsp;<span class="text-purple-400">-H</span> <span class="text-green-400">"X-Sovereign-Key: YOUR_API_KEY"</span> \<br>
+                &nbsp;&nbsp;<span class="text-purple-400">-d</span> <span class="text-green-400">'{
+                "user_id": "test_user",
+                "execution_mode": "fact_check",
+                "text_payload": "The sky is blue on Earth."
+                }'</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Onboarding Modal -->
+    <div id="onboardingModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <span class="text-3xl">🔑</span>
+                <h3 class="text-xl font-bold mt-2">Get Your API Key</h3>
+                <p class="text-gray-400 text-sm mt-1">Enter your email to receive instant access</p>
+            </div>
+            <div class="mt-6">
+                <input type="email" id="signupEmail" placeholder="developer@company.com" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500">
+                <button onclick="generateApiKey()" class="w-full mt-4 bg-indigo-600 hover:bg-indigo-500 py-3 rounded-xl font-semibold transition">Generate API Key</button>
+            </div>
+            <div id="keyResult" class="mt-4 hidden">
+                <div class="bg-gray-800 rounded-xl p-4">
+                    <p class="text-xs text-gray-400 mb-2">Your API Key (save immediately):</p>
+                    <code id="apiKeyDisplay" class="text-sm text-green-400 break-all"></code>
+                </div>
+                <button onclick="closeModal()" class="w-full mt-3 py-2 border border-gray-700 rounded-lg text-sm">I've saved my key</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openOnboardingModal() {
+            document.getElementById('onboardingModal').classList.remove('hidden');
+        }
+        
+        function closeModal() {
+            document.getElementById('onboardingModal').classList.add('hidden');
+            document.getElementById('keyResult').classList.add('hidden');
+            document.getElementById('signupEmail').value = '';
+        }
+        
+        async function generateApiKey() {
+            const email = document.getElementById('signupEmail').value;
+            if (!email) {
+                alert('Please enter your email');
+                return;
+            }
+            
+            // Simulate API key generation
+            const mockKey = 'sk_sov_live_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            
+            document.getElementById('apiKeyDisplay').innerText = mockKey;
+            document.querySelector('#onboardingModal .text-center').classList.add('hidden');
+            document.getElementById('keyResult').classList.remove('hidden');
+            
+            // In production, call backend API
+            console.log(`API key generated for ${email}`);
+        }
+    </script>
+</body>
+</html>
