@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-5xl mx-auto p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-bold">Team Members</h1>
+            <button onclick="inviteMember()" class="px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-500">+ Invite Member</button>
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-800">
+                    <tr><th class="p-4 text-left text-sm">Name</th><th class="p-4 text-left text-sm">Email</th><th class="p-4 text-left text-sm">Role</th><th class="p-4 text-left text-sm">Department</th><th class="p-4 text-left text-sm">Status</th><th class="p-4 text-left text-sm"></th></tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-800">
+                        <td class="p-4 font-medium">John Doe</td>
+                        <td class="p-4 text-gray-400">john@company.com</td>
+                        <td class="p-4"><span class="px-2 py-1 bg-indigo-900 text-indigo-400 text-xs rounded">Admin</span></td>
+                        <td class="p-4 text-gray-400">Executive</td>
+                        <td class="p-4"><span class="px-2 py-1 bg-green-900 text-green-400 text-xs rounded">Active</span></td>
+                        <td class="p-4"><button class="text-gray-500 text-sm">Remove</button></td>
+                    </tr>
+                    <tr class="border-b border-gray-800">
+                        <td class="p-4 font-medium">Jane Smith</td>
+                        <td class="p-4 text-gray-400">jane@company.com</td>
+                        <td class="p-4"><span class="px-2 py-1 bg-blue-900 text-blue-400 text-xs rounded">Manager</span></td>
+                        <td class="p-4 text-gray-400">Engineering</td>
+                        <td class="p-4"><span class="px-2 py-1 bg-green-900 text-green-400 text-xs rounded">Active</span></td>
+                        <td class="p-4"><button class="text-gray-500 text-sm">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 font-medium">Bob Wilson</td>
+                        <td class="p-4 text-gray-400">bob@company.com</td>
+                        <td class="p-4"><span class="px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded">Member</span></td>
+                        <td class="p-4 text-gray-400">Sales</td>
+                        <td class="p-4"><span class="px-2 py-1 bg-yellow-900 text-yellow-400 text-xs rounded">Pending</span></td>
+                        <td class="p-4"><button class="text-gray-500 text-sm">Resend</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Role Permissions -->
+        <div class="mt-8 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+            <h3 class="font-bold mb-4">Role Permissions</h3>
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between py-2 border-b border-gray-800"><span class="text-gray-400">Admin</span><span>Full access to all features, billing, and team management</span></div>
+                <div class="flex justify-between py-2 border-b border-gray-800"><span class="text-gray-400">Manager</span><span>Can create API keys and view analytics, cannot manage billing</span></div>
+                <div class="flex justify-between py-2"><span class="text-gray-400">Member</span><span>Read-only access to dashboard and can use existing API keys</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function inviteMember() {
+            const email = prompt("Enter email address to invite:");
+            if (email) {
+                const role = prompt("Select role (Admin/Manager/Member):", "Member");
+                alert(`Invitation sent to ${email} with ${role} role.`);
+            }
+        }
+    </script>
+</body>
+</html>
