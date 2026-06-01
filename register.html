@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="max-w-md w-full mx-4">
+        <div class="text-center mb-8">
+            <span class="text-4xl">🚀</span>
+            <h1 class="text-2xl font-bold mt-2 bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Create Account</h1>
+            <p class="text-gray-500 text-sm mt-1">Start building with Sovereign Grid today</p>
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+            <form id="registerForm">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Full Name</label>
+                    <input type="text" id="fullName" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500" placeholder="John Doe">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Email Address</label>
+                    <input type="email" id="email" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500" placeholder="developer@company.com">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Company Name</label>
+                    <input type="text" id="company" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500" placeholder="Your Company">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="password" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500" placeholder="Create a strong password">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 py-3 rounded-xl font-semibold transition">Create Account</button>
+            </form>
+
+            <div class="mt-6 text-center text-sm text-gray-500">
+                By signing up, you agree to our <a href="/terms" class="text-indigo-400">Terms of Service</a> and <a href="/privacy" class="text-indigo-400">Privacy Policy</a>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-gray-800 text-center">
+                <a href="/login" class="text-sm text-indigo-400 hover:text-indigo-300">Already have an account? Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            const password = document.getElementById('password').value;
+
+            // In production, call registration API
+            console.log('Registration:', { fullName, email, company });
+            alert('Account created! Check your email for API key.');
+            window.location.href = '/dashboard';
+        });
+    </script>
+</body>
+</html>
