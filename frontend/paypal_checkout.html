@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayPal Checkout | Sovereign Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AdYZjwcxNYqpWCglcoqt4cv0ESkJ-G3RChAAuuET&currency=USD"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <div class="max-w-4xl mx-auto p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold">PayPal Checkout</h1>
+            <p class="text-gray-400 mt-2">Complete your payment securely with PayPal</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Order Summary -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h2 class="text-xl font-bold mb-4">Order Summary</h2>
+                <div class="space-y-3">
+                    <div class="flex justify-between py-2 border-b border-gray-800">
+                        <span>Sovereign Grid Credits</span>
+                        <span id="creditAmount">$49.00</span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b border-gray-800">
+                        <span>Processing Fee</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="flex justify-between py-2 font-bold text-lg">
+                        <span>Total</span>
+                        <span id="totalAmount">$49.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PayPal Button -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h2 class="text-xl font-bold mb-4">Payment Method</h2>
+                <div id="paypal-button-container"></div>
+                <p class="text-xs text-gray-500 text-center mt-4">
+                    🔒 Secure payment powered by PayPal
+                </p>
+            </div>
+        </div>
+
+        <!-- Credit Packages -->
+        <div class="mt-8 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+            <h2 class="text-xl font-bold mb-4">Choose Credit Package</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button onclick="selectPackage(10)" class="package-btn p-4 bg-gray-800 rounded-xl text-center hover:border-indigo-500 border border-gray-700">
+                    <p class="text-lg font-bold">$10</p>
+                    <p class="text-xs text-gray-400">100 credits</p>
+                </button>
+                <button onclick="selectPackage(25)" class="package-btn p-4 bg-gray-800 rounded-xl text-center hover:border-indigo-500 border border-gray-700">
+                    <p class="text-lg font-bold">$25</p>
+                    <p class="text-xs text-gray-400">250 credits</p>
+                </button>
+                <button onclick="selectPackage(49)" class="package-btn p-4 bg-indigo-600 rounded-xl text-center border border-indigo-500">
+                    <p class="text-lg font-bold">$49</p>
+                    <p class="text-xs text-gray-300">500 credits</p>
+                    <span class="text-xs text-green-400">Popular</span>
+                </button>
+                <button onclick="selectPackage(99)" class="package-btn p-4 bg-gray-800 rounded-xl text-center hover:border-indigo-500 border border-gray-700">
+                    <p class="text-lg font-bold">$99</p>
+                    <p class="text-xs text-gray-400">1,100 credits</p>
+                    <span class="text-xs text-green-400">+10% bonus</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedAmount = 49;
+        let orderId = null;
+
+        function selectPackage(amount) {
+            selectedAmount = amount;
+            document.getElementById('creditAmount').innerText = `$${amount}.00`;
+            document.getElementById('totalAmount').innerText = `$${amount}.00`;
+            
+            // Update button styling
+            document.querySelectorAll('.package-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'border-indigo-500');
+                btn.classList.add('bg-gray-800', 'border-gray-700');
+            });
+            event.currentTarget.classList.remove('bg-gray-800', 'border-gray-700');
+            event.currentTarget.classList.add('bg-indigo-600', 'border-indigo-500');
+        }
+
+        // Initialize PayPal button
+        paypal.Buttons({
+            createOrder: async function(data, actions) {
+                try {
+                    const response = await fetch('/paypal/create-order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Sovereign-Key': localStorage.getItem('apiKey')
+                        },
+                        body: JSON.stringify({
+                            amount: selectedAmount,
+                            currency: 'USD',
+                            description: 'Sovereign Grid API Credits',
+                            user_id: localStorage.getItem('userId')
+                        })
+                    });
+                    
+                    const order = await response.json();
+                    orderId = order.order_id;
+                    return order.order_id;
+                } catch (error) {
+                    console.error('Failed to create order:', error);
+                }
+            },
+            onApprove: async function(data, actions) {
+                try {
+                    const response = await fetch(`/paypal/capture-order/${data.orderID}?user_id=${localStorage.getItem('userId')}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Sovereign-Key': localStorage.getItem('apiKey')
+                        }
+                    });
+                    
+                    const capture = await response.json();
+                    
+                    if (capture.success) {
+                        alert(`Payment successful! $${capture.amount} has been added to your wallet.`);
+                        window.location.href = '/dashboard';
+                    } else {
+                        alert('Payment failed. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Capture failed:', error);
+                    alert('Payment processing failed. Please contact support.');
+                }
+            },
+            onError: function(err) {
+                console.error('PayPal error:', err);
+                alert('An error occurred with PayPal. Please try again.');
+            }
+        }).render('#paypal-button-container');
+    </script>
+</body>
+</html>
